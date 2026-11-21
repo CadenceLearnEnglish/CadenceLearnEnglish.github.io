@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cadence: Easy English</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0c1230">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Calm pocket coach: one clean sans (Lexend), generous spacing, soft navy surfaces, gold only for "now" and progress. */
+:root{--bg:#0b1029;--s1:#121a3d;--s2:#19224d;--ink:#f2f4ff;--mut:#9aa3c7;--line:rgba(255,255,255,.07);--gold:#ffcf6e;--gold2:#f5b93a;--ok:#5fd39c;--red:#ff6b6b;
+  --f:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;--r:20px;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--f);-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
+body{padding:env(safe-area-inset-top) 0 calc(84px + env(safe-area-inset-bottom));background:radial-gradient(120% 60% at 50% -10%,#1b2a7a 0,transparent 60%) no-repeat,var(--bg)}
+header{display:flex;align-items:center;gap:12px;padding:18px 20px 6px;max-width:560px;margin:0 auto}
+.logo{width:36px;height:36px;border-radius:11px;background:linear-gradient(145deg,#2b44c7,#1e2f8f);display:grid;place-items:center;box-shadow:0 4px 14px rgba(30,47,143,.5)}
+header h1{font:600 19px var(--f);margin:0;flex:1;letter-spacing:-.01em}
+.streak{font:500 13px var(--f);color:var(--gold);background:rgba(255,207,110,.1);border:1px solid rgba(255,207,110,.25);padding:5px 11px;border-radius:999px;white-space:nowrap}
+main{padding:0 16px;max-width:560px;margin:0 auto}
+section{animation:in .35s var(--ease)}
+section[hidden]{display:none}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card{background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:18px;margin:14px 0}
+.hero{padding:0;overflow:hidden}
+.hero img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.hero .in{padding:16px 18px 18px}
+.k{font:500 12px var(--f);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+h2{font:600 22px/1.25 var(--f);margin:6px 0 4px;letter-spacing:-.015em}
+.mut{color:var(--mut);font-size:14px;margin:0}
+a.lnk{color:var(--gold);text-decoration:none;font-weight:500}
+.btn{font:500 15px var(--f);border:0;border-radius:14px;padding:12px 18px;min-height:48px;cursor:pointer;background:var(--s2);color:var(--ink);
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:transform .15s var(--ease),background .2s,opacity .2s}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#14204a;font-weight:600;box-shadow:0 6px 18px rgba(245,185,58,.25)}
+.btn:disabled{opacity:.4}
+.btn svg{width:18px;height:18px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.player{display:flex;align-items:center;gap:14px}
+.pp{width:58px;height:58px;border-radius:50%;padding:0;min-height:0;flex:none}
+.pp svg{width:24px;height:24px}
+.time{font:500 13px var(--f);color:var(--mut);font-variant-numeric:tabular-nums}
+.bar{height:6px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden;margin:10px 0 2px;cursor:pointer}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));border-radius:6px;transition:width .2s linear}
+.spd{min-height:36px;padding:6px 12px;font-size:13px;border-radius:999px;margin-left:auto}
+.hint{font-size:13px;color:var(--mut);margin:16px 2px 6px}
+.lines{display:grid;gap:4px}
+.ln{display:flex;gap:12px;padding:12px;border-radius:14px;background:transparent;border:0;cursor:pointer;text-align:left;color:#c9cfee;font:400 15.5px/1.5 var(--f);transition:background .25s,color .25s}
+.ln:hover{background:rgba(255,255,255,.03)}
+.av{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:600 12px var(--f);background:var(--s2);color:var(--mut);transition:background .25s,color .25s}
+.ln.on{background:rgba(255,207,110,.08);color:var(--ink)}
+.ln.on .av{background:var(--gold);color:#14204a}
+.prog{display:flex;align-items:center;gap:14px}
+.ring{width:54px;height:54px;flex:none}
+.ring circle{fill:none;stroke-width:6}
+.ph{display:flex;align-items:flex-start;gap:12px}
+.ph .txt{flex:1;font:500 17px/1.4 var(--f)}
+.dot{width:28px;height:28px;border-radius:50%;background:var(--s2);color:var(--mut);display:grid;place-items:center;font:600 13px var(--f);flex:none;transition:background .3s,color .3s}
+.dot.ok{background:var(--ok);color:#0b1029}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.steps .btn{padding:10px 6px;font-size:14px;min-height:44px}
+.rec{background:var(--red)!important;color:#fff!important;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(255,107,107,.15)}}
+.lib h3{font:600 17px var(--f);margin:4px 0 8px}
+.lib ul{margin:0;padding:0}
+.lib li{list-style:none;padding:11px 0;border-top:1px solid var(--line);font-size:15.5px}
+.lib li:first-child{border-top:0}
+.plus ul{margin:10px 0 0;padding:0}
+.plus li{list-style:none;padding:6px 0 6px 26px;position:relative;color:#c9cfee}
+.plus li::before{content:"";position:absolute;left:2px;top:12px;width:12px;height:7px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg)}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));width:min(528px,calc(100% - 24px));display:flex;
+  background:rgba(18,26,61,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:22px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+nav button{flex:1;background:none;border:0;color:var(--mut);font:500 11.5px var(--f);padding:8px 0;cursor:pointer;border-radius:16px;display:grid;justify-items:center;gap:3px;transition:color .2s,background .2s}
+nav button svg{width:22px;height:22px}
+nav button[aria-current="page"]{color:var(--ink);background:rgba(255,255,255,.06)}
+nav button[aria-current="page"] svg{color:var(--gold)}
+.btn:focus-visible,nav button:focus-visible,.ln:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.install{display:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.tutor{display:flex;align-items:center;gap:14px}
+.tav{width:62px;height:62px;border-radius:50%;flex:none;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,.3);border:2px solid rgba(255,207,110,.5)}
+.tav.leo{background:linear-gradient(145deg,#8fb4ff,#4d74e8)}.tav.mila{background:linear-gradient(145deg,#ffd98a,#f5a83a)}
+.tag{display:inline-block;font:500 11.5px var(--f);color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:3px 9px;margin-top:6px}
+.soon{opacity:.75}
+#callv{position:fixed;inset:0;z-index:50;background:radial-gradient(90% 60% at 50% 30%,#1d2d80 0,#0b1029 70%);display:none;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;text-align:center}
+#callv.on{display:flex;animation:in .3s var(--ease)}
+.face{position:relative;width:200px;height:200px;margin:30px 0}
+.face img{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--gold);transition:transform .12s linear,filter .3s}
+.face i{position:absolute;inset:0;border-radius:50%;border:2px solid var(--gold);opacity:0;transition:transform .12s linear,opacity .2s}
+.face.idle img{filter:saturate(.85) brightness(.92)}
+.face.breath img{animation:br 4s ease-in-out infinite}
+@keyframes br{50%{transform:scale(1.025)}}
+#cname{font:600 26px var(--f);margin:0}
+#cstat{color:var(--mut);margin:0;min-height:24px}
+#ctime{font:500 15px var(--f);color:var(--gold);font-variant-numeric:tabular-nums}
+.endb{width:68px;height:68px;border-radius:50%;padding:0;background:var(--red);color:#fff}
+.endb svg{width:28px;height:28px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><svg viewBox="0 0 100 100" width="22" height="22" aria-hidden="true"><path d="M72 26A32 32 0 1 0 72 74" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round"/><circle cx="74" cy="74" r="6.5" fill="#ffb347"/></svg></div>
+  <h1>Cadence</h1>
+  <span class="streak" id="streak">🔥 0 days</span>
+</header>
+<main>
+  <section id="s-today">
+    <div class="card hero"><img id="epImg" alt=""><div class="in"><div class="k" id="epK">Today's episode</div><h2 id="epT"></h2><p class="mut" id="epH"></p></div></div>
+    <div class="card">
+      <audio id="au" preload="metadata"></audio>
+      <div class="player"><button class="btn gold pp" id="play" aria-label="Play episode"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></button>
+        <div style="flex:1;min-width:0"><div style="display:flex;align-items:center"><span class="time" id="tm">0:00</span><button class="btn spd" id="slow">1×</button></div>
+        <div class="bar" id="seek"><i id="prog"></i></div></div></div>
+      <p class="hint">Tap any line to hear it again.</p>
+      <div class="lines" id="lines"></div>
+    </div>
+  </section>
+
+  <section id="s-shadow" hidden>
+    <div class="card prog"><svg class="ring" viewBox="0 0 54 54"><circle cx="27" cy="27" r="23" stroke="rgba(255,255,255,.08)"/><circle id="rg" cx="27" cy="27" r="23" stroke="#ffcf6e" stroke-linecap="round" stroke-dasharray="144.5" stroke-dashoffset="144.5" transform="rotate(-90 27 27)" style="transition:stroke-dashoffset .5s"/><text x="27" y="31" text-anchor="middle" fill="#f2f4ff" font-family="Lexend, system-ui, sans-serif" font-size="13" font-weight="600" id="rgt">0/6</text></svg>
+      <div><div class="k">Shadowing</div><h2 style="margin:2px 0">Say it with them</h2><p class="mut">Listen, record yourself, then compare.</p></div></div>
+    <div id="shadow"></div>
+  </section>
+
+  <section id="s-phrases" hidden>
+    <div class="card"><div class="k">Phrase library</div><h2>Useful phrases by topic</h2><p class="mut">Every episode adds new phrases.</p></div>
+    <div id="lib"></div>
+  </section>
+
+  <section id="s-talk" hidden>
+    <div class="card"><div class="k">Speaking practice</div><h2>Talk with a tutor</h2>
+      <p class="mut">Real conversations at your level. Your tutor listens, gently corrects you and helps you sound natural.</p>
+      <span class="tag">Cadence AI Tutor · you are talking to an AI</span><p class="mut" id="mins" style="margin-top:10px"></p></div>
+    <div class="card"><div class="tutor"><img class="tav" src="../media/leo.jpg" alt="Leo"><div style="flex:1"><h2 style="margin:0;font-size:19px">Leo</h2><p class="mut">Calm and friendly. Role-plays, daily talk, today's episode.</p></div></div>
+      <a class="btn gold call" data-t="leo" style="width:100%;margin-top:14px" href="https://elevenlabs.io/app/talk-to?agent_id=agent_0801m7z84mqpezvr7nvf6qt5aspj" target="_blank" rel="noopener">Talk with Leo</a></div>
+    <div class="card"><div class="tutor"><img class="tav" src="../media/mila.jpg" alt="Mila"><div style="flex:1"><h2 style="margin:0;font-size:19px">Mila</h2><p class="mut">Bright and encouraging. Pronunciation, shadowing, small talk.</p></div></div>
+      <a class="btn gold call" data-t="mila" style="width:100%;margin-top:14px" href="https://elevenlabs.io/app/talk-to?agent_id=agent_1401m7z84py2ezatx92qjc312pr2" target="_blank" rel="noopener">Talk with Mila</a></div>
+    <div class="card soon"><div class="k">Coming soon</div><p class="mut" style="margin-top:6px">Face-to-face video calls with Mila and Leo.</p></div>
+    <p class="hint">Use headphones in a quiet place. Allow the microphone when asked.</p>
+  </section>
+  <section id="s-plus" hidden>
+    <div class="card plus"><div class="k">Cadence Plus · coming soon</div><h2>Practice more, faster</h2>
+      <ul><li>Full shadowing library for every episode</li><li>Transcripts and phrase worksheets</li><li>Daily speaking sessions with Mila and Leo</li><li>Video calls with your tutor</li><li>Pronunciation feedback</li><li>Progress tracking</li></ul>
+      <p class="mut">Free for now while we build it.</p></div>
+    <div class="card"><div class="k">Install the app</div>
+      <p class="mut" id="howInstall" style="margin-top:6px">On iPhone: tap Share, then "Add to Home Screen". On Android: tap the menu, then "Install app".</p>
+      <button class="btn gold install" id="inst" style="margin-top:14px">Install Cadence</button></div>
+    <div class="card"><div class="k">Watch and listen</div><div class="row">
+      <a class="btn" href="https://www.youtube.com/@CadenceLearnEnglish" target="_blank" rel="noopener">YouTube</a>
+      <a class="btn" href="https://open.spotify.com/show/4Lr0XZK6H7RtujGZd8yFxa" target="_blank" rel="noopener">Spotify</a></div></div>
+  </section>
+</main>
+<div id="callv" role="dialog" aria-label="Tutor call">
+  <div class="face idle" id="face"><i id="r1"></i><i id="r2"></i><img id="cimg" alt=""></div>
+  <div><p id="cname"></p><p id="cstat">Connecting…</p></div>
+  <span id="ctime">0:00</span>
+  <span class="tag">Cadence AI Tutor · you are talking to an AI</span>
+  <button class="btn endb" id="cend" aria-label="End call"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 9c-3.3 0-6.3.9-8.6 2.5-.7.5-.9 1.4-.5 2.1l1.2 2c.4.7 1.3.9 2 .5l2.2-1.3c.5-.3.8-.9.7-1.5l-.2-1.2c2-.6 4.2-.6 6.2 0l-.2 1.2c-.1.6.2 1.2.7 1.5l2.2 1.3c.7.4 1.6.2 2-.5l1.2-2c.4-.7.2-1.6-.5-2.1C18.3 9.9 15.3 9 12 9z"/></svg></button>
+</div>
+<nav aria-label="App sections">
+  <button data-s="today" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4.5" height="6" rx="1.5"/><rect x="16.5" y="14" width="4.5" height="6" rx="1.5"/></svg>Today</button>
+  <button data-s="shadow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>Shadow</button>
+  <button data-s="phrases"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 21H20"/></svg>Phrases</button>
+  <button data-s="talk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 11h.01M12 11h.01M15.5 11h.01"/></svg>Talk</button>
+  <button data-s="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg>Plus</button>
+</nav>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const day=()=>new Date().toISOString().slice(0,10);
+let D, au=$('#au'), stopAt=null, curLine=-1;
+
+$$('nav button').forEach(b=>b.onclick=()=>{ $$('nav button').forEach(x=>x.toggleAttribute('aria-current',x===b)); b.setAttribute('aria-current','page');
+  $$('main section').forEach(s=>s.hidden=s.id!=='s-'+b.dataset.s); window.scrollTo(0,0); });
+
+function streak(){const s=store.get('streak',{n:0,last:''});$('#streak').textContent=`🔥 ${s.n} day${s.n===1?'':'s'}`;}
+function markDay(){const s=store.get('streak',{n:0,last:''}),t=day();if(s.last===t)return;const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+  s.n=(s.last===y)?s.n+1:1;s.last=t;store.set('streak',s);streak();}
+
+function playRange(a,b){stopAt=b;au.currentTime=a;au.play();}
+au.ontimeupdate=()=>{ if(stopAt!==null&&au.currentTime>=stopAt){au.pause();stopAt=null;}
+  $('#prog').style.width=(au.duration?au.currentTime/au.duration*100:0)+'%';$('#tm').textContent=fmt(au.currentTime)+(au.duration?' / '+fmt(au.duration):'');
+  const i=D.today.lines.findIndex(l=>au.currentTime>=l.a&&au.currentTime<l.b);
+  if(i!==curLine){curLine=i;$$('.ln').forEach((e,k)=>e.classList.toggle('on',k===i));const e=$('#ln'+i);if(e&&!au.paused&&stopAt===null)e.scrollIntoView({block:'center',behavior:'smooth'});}};
+const IP='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>',IZ='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1.2"/><rect x="13.5" y="5" width="4" height="14" rx="1.2"/></svg>';au.onplay=()=>$('#play').innerHTML=IZ; au.onpause=()=>$('#play').innerHTML=IP;
+$('#seek').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();if(au.duration){stopAt=null;au.currentTime=(e.clientX-r.left)/r.width*au.duration;}};
+const fmt=t=>Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');
+$('#play').onclick=()=>{stopAt=null;au.paused?au.play():au.pause();};
+let rates=[1,0.85,0.7],ri=0;$('#slow').onclick=()=>{ri=(ri+1)%rates.length;au.playbackRate=rates[ri];$('#slow').textContent=`${rates[ri]}×`;};
+
+function renderToday(){const t=D.today;$('#epImg').src=t.img;$('#epImg').alt=t.title;$('#epK').textContent=`Episode ${t.n} · with ${t.hosts}`;$('#epT').textContent=t.title;
+  $('#epH').innerHTML=`About 3 minutes · <a class="lnk" href="${t.yt}" target="_blank" rel="noopener">Watch on YouTube</a>`;au.src=t.audio;
+  $('#lines').innerHTML=t.lines.map((l,i)=>`<button class="ln" id="ln${i}" data-i="${i}"><span class="av" title="${esc(l.who)}">${esc(l.who[0])}</span><span>${esc(l.t)}</span></button>`).join('');
+  $$('.ln').forEach(b=>b.onclick=()=>{const l=t.lines[b.dataset.i];playRange(l.a,l.b);});}
+
+let rec=null,chunks=[];
+function renderShadow(){const t=D.today,done=store.get('sh'+t.n+day(),[]);
+  $('#shadow').innerHTML=t.phrases.map((i,k)=>{const l=t.lines[i];const txt=l.t.replace(/^(One|Two|Three|Four|Five|And six):\s*/,'').replace(/^["“]|["”]$/g,'');
+    return `<div class="card"><div class="ph"><div class="dot ${done.includes(k)?'ok':''}" id="d${k}">${done.includes(k)?'✓':k+1}</div><div class="txt">${esc(txt)}</div></div>
+    <div class="steps"><button class="btn" data-a="listen" data-k="${k}">Listen</button><button class="btn" data-a="rec" data-k="${k}">Record</button><button class="btn" data-a="me" data-k="${k}" disabled>Hear me</button></div><audio id="me${k}" hidden></audio></div>`}).join('');
+  $$('#shadow [data-a]').forEach(b=>b.onclick=()=>shadowAct(b));ring();}
+function ring(){const t=D.today,n=store.get('sh'+t.n+day(),[]).length,N=t.phrases.length;$('#rg').style.strokeDashoffset=144.5*(1-n/N);$('#rgt').textContent=n+'/'+N;}
+async function shadowAct(b){const k=+b.dataset.k,t=D.today,l=t.lines[t.phrases[k]];
+  if(b.dataset.a==='listen')playRange(l.a,l.b);
+  if(b.dataset.a==='me')$('#me'+k).play();
+  if(b.dataset.a==='rec'){
+    if(rec&&rec.state==='recording'){rec.stop();return;}
+    try{const st=await navigator.mediaDevices.getUserMedia({audio:true});rec=new MediaRecorder(st);chunks=[];
+      rec.ondataavailable=e=>chunks.push(e.data);
+      rec.onstop=()=>{st.getTracks().forEach(x=>x.stop());const a=$('#me'+k);a.src=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType}));
+        b.classList.remove('rec');b.textContent='Record again';const me=b.nextElementSibling;me.disabled=false;
+        const done=store.get('sh'+t.n+day(),[]);if(!done.includes(k)){done.push(k);store.set('sh'+t.n+day(),done);}
+        const d=$('#d'+k);d.classList.add('ok');d.textContent='✓';ring();if(done.length===t.phrases.length)markDay();a.play();};
+      rec.start();b.classList.add('rec');b.textContent='Stop';
+    }catch(e){b.textContent='Mic blocked';}
+  }}
+
+function renderLib(){$('#lib').innerHTML=D.library.map(g=>`<div class="card lib"><div class="k">Episode ${g.ep}</div><h3>${esc(g.topic)}</h3><ul>${g.p.map(p=>`<li>${esc(p)}</li>`).join('')}</ul></div>`).join('');}
+
+let deferred=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;$('#inst').style.display='inline-block';});
+$('#inst').onclick=async()=>{if(!deferred)return;deferred.prompt();deferred=null;$('#inst').style.display='none';};
+
+fetch('data.json').then(r=>r.json()).then(d=>{D=d;renderToday();renderShadow();renderLib();streak();})
+  .catch(()=>{$('#epT').textContent='Could not load today\'s episode. Check your connection.';});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+
+<script type="module">
+const T={leo:{id:'agent_0801m7z84mqpezvr7nvf6qt5aspj',name:'Leo',img:'../media/leo.jpg'},mila:{id:'agent_1401m7z84py2ezatx92qjc312pr2',name:'Mila',img:'../media/mila.jpg'}};
+const FREE=300; // free seconds per week
+const q=s=>document.querySelector(s);
+const wk=()=>{const d=new Date();d.setUTCHours(0,0,0,0);d.setUTCDate(d.getUTCDate()-((d.getUTCDay()+6)%7));return d.toISOString().slice(0,10)};
+const get=()=>{try{const u=JSON.parse(localStorage.getItem('talk')||'{}');return u.w===wk()?u.s:0}catch(e){return 0}};
+const add=n=>{try{localStorage.setItem('talk',JSON.stringify({w:wk(),s:get()+n}))}catch(e){}};
+const left=()=>Math.max(0,FREE-get());
+const fmt=t=>Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');
+const showLeft=()=>{const l=left();q('#mins').textContent=l>0?`Free practice left this week: ${fmt(l)} min`:'You have used your free practice this week. It resets on Monday.'};
+showLeft();
+const framed=(()=>{try{return window.self!==window.top}catch(e){return true}})();
+let conv=null,t0=0,tick=null,raf=null;
+function stop(){cancelAnimationFrame(raf);clearInterval(tick);if(t0){add(Math.round((Date.now()-t0)/1000));t0=0}showLeft();q('#callv').classList.remove('on');document.body.style.overflow='';}
+async function end(){const c=conv;conv=null;try{await c?.endSession()}catch(e){}stop();}
+q('#cend').onclick=end;
+function animate(){const f=q('#face'),img=q('#cimg');let v=0;try{v=conv?.getOutputVolume?.()||0}catch(e){}
+  const k=Math.min(1,v*2.2);img.style.transform=`scale(${1+k*.05})`;
+  q('#r1').style.opacity=k*.7;q('#r1').style.transform=`scale(${1.06+k*.18})`;q('#r2').style.opacity=k*.35;q('#r2').style.transform=`scale(${1.12+k*.32})`;
+  raf=requestAnimationFrame(animate);}
+document.querySelectorAll('a.call').forEach(a=>a.addEventListener('click',async e=>{
+  if(framed)return; // inside a preview frame: open the tutor page instead
+  e.preventDefault();
+  if(left()<=0){showLeft();return}
+  const t=T[a.dataset.t];q('#cimg').src=t.img;q('#cname').textContent=t.name;q('#cstat').textContent='Connecting…';q('#ctime').textContent='0:00';
+  q('#face').className='face idle';q('#callv').classList.add('on');document.body.style.overflow='hidden';
+  try{
+    await navigator.mediaDevices.getUserMedia({audio:true});
+    const {Conversation}=await import('https://cdn.jsdelivr.net/npm/@elevenlabs/client@1.34.0/+esm');
+    conv=await Conversation.startSession({agentId:t.id,connectionType:'websocket',
+      onModeChange:({mode})=>{q('#face').className='face '+(mode==='speaking'?'':'breath');q('#cstat').textContent=mode==='speaking'?`${t.name} is speaking`:'Your turn, speak now'},
+      onDisconnect:()=>{if(conv){conv=null;stop()}},
+      onError:()=>{q('#cstat').textContent='Connection problem. Please try again.'}});
+    t0=Date.now();tick=setInterval(()=>{const s=(Date.now()-t0)/1000;q('#ctime').textContent=fmt(s);if(s>=left())end()},500);
+    animate();
+  }catch(err){q('#cstat').textContent=err&&err.name==='NotAllowedError'?'Please allow the microphone to talk.':'Could not connect. Opening the tutor page…';
+    setTimeout(()=>{stop();if(!(err&&err.name==='NotAllowedError'))location.href=a.href},1600);}
+}));
+</script>
+</body>
+</html>
