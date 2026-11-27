@@ -1,0 +1,5 @@
+<!doctype html><meta charset="utf-8"><title>relay</title><body>Sending file...<script>
+(async()=>{const f=new URLSearchParams(location.search).get('f');const b=await (await fetch(f)).blob();
+for(let i=0;i<40;i++){try{window.opener&&window.opener.postMessage({cadenceFile:b,name:f.split('/').pop()},'*');}catch(e){}await new Promise(r=>setTimeout(r,500));}
+document.body.textContent='Done. You can close this tab.';})();
+</script>
